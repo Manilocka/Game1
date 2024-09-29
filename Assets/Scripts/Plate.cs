@@ -6,7 +6,11 @@ public class Plate : MonoBehaviour
 
     public void Activate()
     {
-        isActive = true;
-        GetComponent<Renderer>().material.color = Color.yellow; 
+        if (!isActive) // Проверяем, активирована ли плита ранее
+        {
+            isActive = true;
+            GetComponent<Renderer>().material.color = Color.yellow; // Меняем цвет на желтый
+            
+        }
     }
 }

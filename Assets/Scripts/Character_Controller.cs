@@ -132,11 +132,9 @@ public class Character_Controller : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>(); 
-        rockMask = LayerMask.GetMask("rockMask");
-        plateMask = LayerMask.GetMask("plate");
     }
 
-    private void FixedUpdate() // Изменено на FixedUpdate
+    private void FixedUpdate() 
     {
         Move();
     }
@@ -147,7 +145,7 @@ public class Character_Controller : MonoBehaviour
         float moveY = Input.GetAxis("Vertical");
 
         Vector2 moveDirection = new Vector2(moveX, moveY).normalized;
-        Vector2 targetPosition = (Vector2)transform.position + moveSpeed * Time.fixedDeltaTime * moveDirection; // Изменено на Time.fixedDeltaTime
+        Vector2 targetPosition = (Vector2)transform.position + moveSpeed * Time.fixedDeltaTime * moveDirection;
 
         if (!Physics2D.OverlapCircle(targetPosition, 0.1f, rockMask))
         {
@@ -166,51 +164,59 @@ public class Character_Controller : MonoBehaviour
         if (plateCollider != null)
         {
             Plate plate = plateCollider.GetComponent<Plate>();
-            if (plate != null)
+            if (plate != null && (IsPlayerOnPlate() || IsRockOnPlate(plate)))
             {
-                plate.Activate(); // Активируем плиту
+                plate.Activate(); // Активируем плиту только если на ней стоит персонаж или камень
             }
         }
     }
-    
+
+    bool IsPlayerOnPlate()
+    {
+        // Проверяем, стоит ли персонаж на плите
+        Vector2 position = (Vector2)transform.position;
+        Collider2D plateCollider = Physics2D.OverlapCircle(position, 0.1f, plateMask);
+        return plateCollider != null;
+    }
+
+    bool IsRockOnPlate(Plate plate)
+    {
+        // Проверяем, стоит ли камень на данной плите
+        Vector2 position = plate.transform.position;
+        return Physics2D.OverlapCircle(position, 0.1f, rockMask) != null;
+    }
+
     void HandleRockPush(Vector2 currentPosition, Vector2 moveDirection)
     {
         float playerHitRadius = 1f; 
         float targetPositionCheckRadius = 0.1f; 
 
-        // Use the character's position to check for rock collision
         Collider2D hit = Physics2D.OverlapCircle(currentPosition, playerHitRadius, rockMask);
-
-        Debug.Log("Hit rock: " + (hit != null)); 
 
         if (hit != null)
         {
-            Debug.Log("Rock name: " + hit.name); 
-
             if (hit.TryGetComponent<Rock>(out var rock))
             {
                 Vector2 rockTargetPosition = (Vector2)rock.transform.position + moveDirection.normalized;
 
-                Debug.Log("Player pos: " + currentPosition + " rock target pos: " + rockTargetPosition + " rock current pos: " + rock.transform.position);
-
                 bool isTargetPositionFree = 
                     !Physics2D.OverlapCircle(rockTargetPosition, targetPositionCheckRadius, rockMask) && 
                     !Physics2D.OverlapCircle(rockTargetPosition, targetPositionCheckRadius, LayerMask.GetMask("tree")) && 
-                    !Physics2D.OverlapCircle(rockTargetPosition, targetPositionCheckRadius, plateMask);
-
-                Debug.Log("Is target position free: " + isTargetPositionFree); 
+                    (!Physics2D.OverlapCircle(rockTargetPosition, targetPositionCheckRadius, plateMask) || IsPlaceOnPlate(rockTargetPosition));
 
                 if (isTargetPositionFree)
                 {
-                    Debug.Log("Moving rock to position: " + rockTargetPosition);
                     rock.GetComponent<Rigidbody2D>().MovePosition(rockTargetPosition); 
                 }
             }
-            else
-            {
-                Debug.Log("Rock component not found on the hit object."); 
-            }
         }
+    }
+
+    bool IsPlaceOnPlate(Vector2 position)
+    {
+        // Проверяем, находится ли данная позиция на плите
+        Collider2D plateCollider = Physics2D.OverlapCircle(position, 0.1f, plateMask);
+        return plateCollider != null;
     }
 }
     // void HandleRockPush(Vector2 moveDirection)
