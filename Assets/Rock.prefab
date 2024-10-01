@@ -144,6 +144,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ba0d4ad0bf9e0d448f62d6ccc58049b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  plateMask:
+    serializedVersion: 2
+    m_Bits: 256
+  rockMask:
+    serializedVersion: 2
+    m_Bits: 512
+  treeMask:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!50 &-7176623418211520563
 Rigidbody2D:
   serializedVersion: 4

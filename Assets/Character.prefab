@@ -126,6 +126,9 @@ MonoBehaviour:
   rockMask:
     serializedVersion: 2
     m_Bits: 512
+  treeMask:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!212 &251081071558030647
 SpriteRenderer:
   m_ObjectHideFlags: 0
