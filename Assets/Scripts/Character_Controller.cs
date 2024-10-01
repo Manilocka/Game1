@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Character_Controller : MonoBehaviour
 {
+
     public float moveSpeed = 5f;
     public LayerMask plateMask;
     public LayerMask rockMask;
@@ -28,6 +29,7 @@ public class Character_Controller : MonoBehaviour
 
         Vector2 moveDirection = new Vector2(moveX, moveY).normalized;
         Vector2 targetPosition = (Vector2)transform.position + moveSpeed * Time.fixedDeltaTime * moveDirection;
+
 
         // Проверка на столкновение с камнями и деревьями
         bool canMoveToTarget = !Physics2D.OverlapCircle(targetPosition, 0.1f, rockMask);

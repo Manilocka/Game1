@@ -20,10 +20,10 @@ public class GameBoard : MonoBehaviour
         {"G", "G", "P", "G", "G", "R", "G", "G", "G", "G"},
         {"G", "G", "G", "G", "G", "G", "G", "G", "G", "G"},
         {"G", "G", "G", "G", "G", "G", "G", "G", "T", "G"},
-        {"G", "G", "R", "G", "G", "G", "G", "G", "G", "G"},
+        {"G", "G", "R", "G", "C", "G", "G", "G", "G", "G"},
         {"G", "G", "G", "G", "G", "G", "G", "P", "G", "G"},
         {"G", "G", "G", "G", "G", "G", "G", "G", "G", "G"},
-        {"G", "G", "G", "G", "G", "C", "G", "G", "G", "G"},
+        {"G", "G", "G", "G", "G", "G", "G", "G", "G", "G"},
     };
 
     void Start()
@@ -32,48 +32,94 @@ public class GameBoard : MonoBehaviour
         MoveCharacterToCenter();
     }
 
-   void GenerateBoard()
-    {
+//    void GenerateBoard()
+//     {
         
+//         for (int x = 0; x < width; x++)
+//         {
+//             for (int y = 0; y < height; y++)
+//             {
+//                 Vector3 position = new Vector3(x * cellSize, y * cellSize, 0); 
+//                 Instantiate(grassPrefab, position, Quaternion.identity);
+//             }
+//         }
+
+//         for (int x = 0; x < width; x++)
+//         {
+//             for (int y = 0; y < height; y++)
+//             {
+//                 string element = boardLayout[y, x];
+
+
+//                 if (element == "T")
+//                 {
+//                     Instantiate(treePrefab, new Vector3(x * cellSize, y * cellSize, 0.1f), Quaternion.identity); 
+//                 }
+//                 else if (element == "P")
+//                 {
+//                     Instantiate(platePrefab, new Vector3(x * cellSize, y * cellSize, 0.1f), Quaternion.identity); 
+//                 }
+//                 else if (element == "R")
+//                 {
+//                     Instantiate(rockPrefab, new Vector3(x * cellSize, y * cellSize, 0.1f), Quaternion.identity);
+//                 }
+//                 else if (element == "C")
+//                 {
+//                     Instantiate(characterPrefab, new Vector3(x * cellSize, y * cellSize, 0.1f), Quaternion.identity); 
+//                 }
+//             }
+//         }
+//     }   
+    void GenerateBoard()
+    {
+        // Создаем траву на игровом поле
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
             {
-                Vector3 position = new Vector3(x * cellSize, y * cellSize, 0); 
+                Vector3 position = new Vector3(x * cellSize, y * cellSize, 0);
                 Instantiate(grassPrefab, position, Quaternion.identity);
             }
         }
 
+        // Размещаем объекты (деревья, плиты и камни) на игровом поле
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
             {
                 string element = boardLayout[y, x];
 
-
-                if (element == "T")
+                // Размещаем деревья по краям игрового поля
+                if (x == 0 || x == width - 1 || y == 0 || y == height - 1)
                 {
-                    Instantiate(treePrefab, new Vector3(x * cellSize, y * cellSize, 0.1f), Quaternion.identity); 
+                    Instantiate(treePrefab, new Vector3(x * cellSize, y * cellSize, 0.1f), Quaternion.identity);
                 }
-                else if (element == "P")
+                else
                 {
-                    Instantiate(platePrefab, new Vector3(x * cellSize, y * cellSize, 0.1f), Quaternion.identity); 
-                }
-                else if (element == "R")
-                {
-                    Instantiate(rockPrefab, new Vector3(x * cellSize, y * cellSize, 0.1f), Quaternion.identity);
-                }
-                else if (element == "C")
-                {
-                    Instantiate(characterPrefab, new Vector3(x * cellSize, y * cellSize, 0.1f), Quaternion.identity); 
+                    if (element == "T")
+                    {
+                        Instantiate(treePrefab, new Vector3(x * cellSize, y * cellSize, 0.1f), Quaternion.identity);
+                    }
+                    else if (element == "P")
+                    {
+                        Instantiate(platePrefab, new Vector3(x * cellSize, y * cellSize, 0.1f), Quaternion.identity);
+                    }
+                    else if (element == "R")
+                    {
+                        Instantiate(rockPrefab, new Vector3(x * cellSize, y * cellSize, 0.1f), Quaternion.identity);
+                    }
+                    else if (element == "C")
+                    {
+                        Instantiate(characterPrefab, new Vector3(x * cellSize, y * cellSize, 0.1f), Quaternion.identity);
+                    }
                 }
             }
         }
-    }   
+    }
     void MoveCharacterToCenter()
     {
         
-        GameObject character = GameObject.FindGameObjectWithTag("Player"); 
+        GameObject character = GameObject.FindGameObjectWithTag("Character"); 
         if (character != null)
         {
             
