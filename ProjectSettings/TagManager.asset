@@ -17,14 +17,14 @@ TagManager:
   - Water
   - UI
   - character
-  - grass
+  - 
   - plate
   - rockMask
   - tree
   - 
   - 
   - 
-  - 
+  - grass
   - 
   - 
   - 
@@ -45,4 +45,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: background
+    uniqueID: 717861335
     locked: 0
