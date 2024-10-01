@@ -17,24 +17,69 @@ using UnityEngine;
 public class Plate : MonoBehaviour
 {
     public bool isActive = false;
+    private PlateManager plateManager;
+    public int index; 
+
+    private void Start()
+    {
+        plateManager = FindObjectOfType<PlateManager>(); 
+    }
 
     public void Activate()
     {
         isActive = true;
         GetComponent<Renderer>().material.color = Color.yellow; 
-        Debug.Log("Rock is on the plate");
+        // plateManager.ActivatePlate();
+        plateManager.ActivatePlate(index); // Передаем индекс
+        Debug.Log("Rock is on the plate with index: " + index);
+        // Debug.Log("Rock is on the plate");
     }
 
     public void Deactivate()
     {
         isActive = false;
         GetComponent<Renderer>().material.color = Color.white; 
+        // plateManager.DeactivatePlate(); 
+        plateManager.DeactivatePlate(index); // Передаем индекс
     }
 }
 
 
 
+// using UnityEngine;
 
+// public class Plate : MonoBehaviour
+// {
+//     public bool isActive = false;
+//     private PlateManager plateManager; // Ссылка на PlateManager
+//     public int index; 
+
+//     private void Start()
+//     {
+//         plateManager = FindObjectOfType<PlateManager>(); // Находим PlateManager на сцене
+//     }
+
+//     public void Activate()
+//     {
+//         if (!isActive) // Проверяем, активирована ли плита
+//         {
+//             isActive = true;
+//             GetComponent<Renderer>().material.color = Color.yellow; 
+//             plateManager.ActivatePlate(); // Уведомляем PlateManager об активации
+//             Debug.Log("Rock is on the plate");
+//         }
+//     }
+
+//     public void Deactivate()
+//     {
+//         if (isActive) // Проверяем, была ли плита активирована
+//         {
+//             isActive = false;
+//             GetComponent<Renderer>().material.color = Color.white; 
+//             plateManager.DeactivatePlate(); // Уведомляем PlateManager о деактивации
+//         }
+//     }
+// }
 
 
 

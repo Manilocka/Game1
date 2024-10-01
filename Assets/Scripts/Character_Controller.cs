@@ -6,10 +6,10 @@ public class Character_Controller : MonoBehaviour
     public float moveSpeed = 5f;
     public LayerMask plateMask;
     public LayerMask rockMask;
-    public LayerMask treeMask; // Маска для деревьев
+    public LayerMask treeMask; 
 
     private Rigidbody2D rb;
-    private Plate currentPlate; // Хранит текущую активированную плиту
+    private Plate currentPlate; 
 
     private void Start()
     {
@@ -19,7 +19,7 @@ public class Character_Controller : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
-        UpdatePlateActivation(); // Проверка состояния плиты
+        UpdatePlateActivation(); 
     }
 
     void Move()
@@ -31,9 +31,8 @@ public class Character_Controller : MonoBehaviour
         Vector2 targetPosition = (Vector2)transform.position + moveSpeed * Time.fixedDeltaTime * moveDirection;
 
 
-        // Проверка на столкновение с камнями и деревьями
         bool canMoveToTarget = !Physics2D.OverlapCircle(targetPosition, 0.1f, rockMask);
-        canMoveToTarget &= !Physics2D.OverlapCircle(targetPosition, 0.1f, treeMask); // Проверка на деревья
+        canMoveToTarget &= !Physics2D.OverlapCircle(targetPosition, 0.1f, treeMask); 
 
         if (canMoveToTarget)
         {

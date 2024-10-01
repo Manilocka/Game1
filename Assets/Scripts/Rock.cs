@@ -16,6 +16,7 @@ public class Rock : MonoBehaviour
 
     private void FixedUpdate()
     {
+        HandlePlateActivation(transform.position);
         UpdatePlateActivation(); // Проверка состояния плиты
     }
 
