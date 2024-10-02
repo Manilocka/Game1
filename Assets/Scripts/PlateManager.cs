@@ -1,54 +1,28 @@
-// using UnityEngine;
-// using UnityEngine.SceneManagement;
-
-// public class PlateManager : MonoBehaviour
-// {
-//     private int activePlatesCount = 0;
-
-//     public void ActivatePlate()
-//     {
-//         activePlatesCount++;
-//         CheckForSceneChange();
-//     }
-
-//     public void DeactivatePlate()
-//     {
-//         activePlatesCount--;
-//     }
-
-//     private void CheckForSceneChange()
-//     {
-//         if (activePlatesCount >= 3) // Если активировано 3 плиты
-//         {
-//             SceneManager.LoadScene("level2"); // Замените "NextScene" на имя вашей следующей сцены
-//         }
-//     }
-// }
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections.Generic; // Добавьте это, чтобы использовать HashSet.
+using System.Collections.Generic; 
 
 public class PlateManager : MonoBehaviour
 {
-    private HashSet<int> activePlatesIndices = new HashSet<int>(); // Используем HashSet для уникальных индексов
+    private HashSet<int> activePlatesIndices = new HashSet<int>();
 
     public void ActivatePlate(int index)
     {
-        activePlatesIndices.Add(index); // Добавляем индекс в набор активированных плит
+        activePlatesIndices.Add(index); 
         CheckForSceneChange();
     }
 
     public void DeactivatePlate(int index)
     {
-        activePlatesIndices.Remove(index); // Убираем индекс из активированных плит
+        activePlatesIndices.Remove(index); 
     }
 
     private void CheckForSceneChange()
     {
-        if (activePlatesIndices.Count >= 3) // Если активировано 3 или более плиты
+        if (activePlatesIndices.Count >= 3) 
         {
-            SceneManager.LoadScene("level2"); // Замените на имя вашей следующей сцены
+            SceneManager.LoadScene("level2");
         }
     }
 }

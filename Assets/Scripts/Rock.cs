@@ -4,10 +4,10 @@ public class Rock : MonoBehaviour
 {
     public LayerMask plateMask;
     public LayerMask rockMask;
-    public LayerMask treeMask; // Маска для деревьев
+    public LayerMask treeMask; 
 
     private Rigidbody2D rb;
-    private Plate currentPlate; // Хранит текущую активированную плиту
+    private Plate currentPlate; 
 
     private void Start()
     {
@@ -17,7 +17,7 @@ public class Rock : MonoBehaviour
     private void FixedUpdate()
     {
         HandlePlateActivation(transform.position);
-        UpdatePlateActivation(); // Проверка состояния плиты
+        UpdatePlateActivation(); 
     }
 
     void HandlePlateActivation(Vector2 position)
@@ -28,24 +28,23 @@ public class Rock : MonoBehaviour
             Plate plate = plateCollider.GetComponent<Plate>();
             if (plate != null && IsRockOnPlate())
             {
-                plate.Activate(); // Активируем плиту
-                currentPlate = plate; // Сохраняем текущую плиту
+                plate.Activate(); 
+                currentPlate = plate; 
             }
         }
     }
 
     void UpdatePlateActivation()
     {
-        if (currentPlate != null && !IsRockOnPlate()) // Если плита активирована, но камень на ней нет
+        if (currentPlate != null && !IsRockOnPlate()) 
         {
-            currentPlate.Deactivate(); // Деактивируем плиту
-            currentPlate = null; // Сбрасываем ссылку на активированную плиту
+            currentPlate.Deactivate(); 
+            currentPlate = null; 
         }
     }
 
     bool IsRockOnPlate()
     {
-        // Проверяем, стоит ли камень на плите
         Vector2 position = (Vector2)transform.position;
         Collider2D plateCollider = Physics2D.OverlapCircle(position, 0.1f, plateMask);
         return plateCollider != null;
@@ -55,11 +54,10 @@ public class Rock : MonoBehaviour
     {
         Vector2 targetPosition = (Vector2)transform.position + moveDirection.normalized;
 
-        // Проверка на столкновение с деревьями и другими камнями
         if (!Physics2D.OverlapCircle(targetPosition, 0.1f, rockMask) && 
             !Physics2D.OverlapCircle(targetPosition, 0.1f, treeMask))
         {
-            rb.MovePosition(targetPosition); // Двигаем камень
+            rb.MovePosition(targetPosition); 
         }
     }
 }

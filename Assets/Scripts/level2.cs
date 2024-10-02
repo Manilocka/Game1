@@ -62,9 +62,9 @@ public class level2 : MonoBehaviour
                     }
                     else if (element == "P")
                     {
-                        // Создаем плиту и устанавливаем её индекс
+                       
                         Plate newPlate = Instantiate(platePrefab, new Vector3(x * cellSize, y * cellSize, 0.1f), Quaternion.identity).GetComponent<Plate>();
-                        newPlate.index = y * width + x; // Устанавливаем индекс для плиты
+                        newPlate.index = y * width + x; 
                     }
                     else if (element == "R")
                     {
